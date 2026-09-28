@@ -29,6 +29,13 @@ function Diagnose() {
     setError("");
   }
 
+  function removeImage() {
+    setImage(null);
+    setImagePreview(null);
+    setResult(null);
+    setError("");
+  }
+
   async function handleDiagnosis() {
     if (!image) {
       setError("Please upload a crop image first.");
@@ -62,7 +69,10 @@ function Diagnose() {
 
       <main className="dashboard diagnose-page">
 
-        {/* Page Header */}
+        {/* ==============================
+            PAGE HEADER
+            ============================== */}
+
         <header className="diagnose-header">
           <div>
             <p className="eyebrow">CROP DIAGNOSTICS</p>
@@ -74,18 +84,21 @@ function Diagnose() {
               condition and identify appropriate actions.
             </p>
           </div>
-
-          <div className="diagnose-status">
-            <span className="status-dot"></span>
-            Assessment Ready
-          </div>
+               <a href="/" className="diagnose-back-button">
+  ← Back to Dashboard
+</a>
         </header>
+   
 
 
-        {/* Assessment Workspace */}
+        {/* ==============================
+            ASSESSMENT WORKSPACE
+            ============================== */}
+
         <section className="diagnose-workspace">
 
-          {/* Image Panel */}
+          {/* ---------- IMAGE PANEL ---------- */}
+
           <div className="diagnose-image-panel">
 
             <div className="panel-heading">
@@ -95,12 +108,12 @@ function Diagnose() {
               </div>
             </div>
 
-            <label
-              htmlFor="crop-image"
+            <div
               className={`image-upload-area ${
                 imagePreview ? "has-image" : ""
               }`}
             >
+
               {imagePreview ? (
                 <img
                   src={imagePreview}
@@ -109,19 +122,83 @@ function Diagnose() {
                 />
               ) : (
                 <div className="upload-placeholder">
-                  <div className="upload-icon">↑</div>
 
-                  <strong>Upload crop image</strong>
+                  <div className="upload-icon">
+                    📷
+                  </div>
+
+                  <strong>
+                    Add crop image
+                  </strong>
 
                   <span>
-                    JPG, PNG or WEBP
+                    Take a photo or upload an image
                   </span>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      marginTop: "18px",
+                      flexWrap: "wrap",
+                      justifyContent: "center",
+                    }}
+                  >
+
+                    <label
+                      htmlFor="crop-camera"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "11px 16px",
+                        borderRadius: "8px",
+                        background: "#216044",
+                        color: "#ffffff",
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                      }}
+                    >
+                      📷 Take Photo
+                    </label>
+
+                    <label
+                      htmlFor="crop-image"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "11px 16px",
+                        borderRadius: "8px",
+                        border: "1px solid #cbdad2",
+                        background: "#ffffff",
+                        color: "#315c49",
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                      }}
+                    >
+                      ↑ Upload Image
+                    </label>
+
+                  </div>
 
                   <small>
                     Use a clear image of the affected crop area
                   </small>
+
                 </div>
               )}
+
+              <input
+                id="crop-camera"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onChange={handleImageChange}
+                hidden
+              />
 
               <input
                 id="crop-image"
@@ -130,42 +207,52 @@ function Diagnose() {
                 onChange={handleImageChange}
                 hidden
               />
-            </label>
+
+            </div>
 
             {image && (
               <div className="selected-file">
-                <span>{image.name}</span>
+
+                <span>
+                  {image.name}
+                </span>
 
                 <button
                   type="button"
-                  onClick={() => {
-                    setImage(null);
-                    setImagePreview(null);
-                    setResult(null);
-                  }}
+                  onClick={removeImage}
                 >
                   Remove
                 </button>
+
               </div>
             )}
 
           </div>
 
 
-          {/* Context Panel */}
+          {/* ---------- CONTEXT PANEL ---------- */}
+
           <div className="diagnose-context-panel">
 
             <div className="panel-heading">
               <div>
-                <p className="eyebrow">02 · FIELD CONTEXT</p>
-                <h2>Crop Information</h2>
+                <p className="eyebrow">
+                  02 · FIELD CONTEXT
+                </p>
+
+                <h2>
+                  Crop Information
+                </h2>
               </div>
             </div>
 
 
             <div className="diagnose-form">
 
+              {/* Crop */}
+
               <div className="form-field">
+
                 <label htmlFor="crop">
                   Crop
                 </label>
@@ -173,18 +260,38 @@ function Diagnose() {
                 <select
                   id="crop"
                   value={crop}
-                  onChange={(event) => setCrop(event.target.value)}
+                  onChange={(event) =>
+                    setCrop(event.target.value)
+                  }
                 >
-                  <option value="Cotton">Cotton</option>
-                  <option value="Rice">Rice</option>
-                  <option value="Wheat">Wheat</option>
-                  <option value="Maize">Maize</option>
-                  <option value="Soybean">Soybean</option>
+                  <option value="Cotton">
+                    Cotton
+                  </option>
+
+                  <option value="Rice">
+                    Rice
+                  </option>
+
+                  <option value="Wheat">
+                    Wheat
+                  </option>
+
+                  <option value="Maize">
+                    Maize
+                  </option>
+
+                  <option value="Soybean">
+                    Soybean
+                  </option>
                 </select>
+
               </div>
 
 
+              {/* Growth Stage */}
+
               <div className="form-field">
+
                 <label htmlFor="growth-stage">
                   Growth Stage
                 </label>
@@ -196,16 +303,34 @@ function Diagnose() {
                     setGrowthStage(event.target.value)
                   }
                 >
-                  <option value="Germination">Germination</option>
-                  <option value="Vegetative">Vegetative</option>
-                  <option value="Flowering">Flowering</option>
-                  <option value="Fruiting">Fruiting</option>
-                  <option value="Maturity">Maturity</option>
+                  <option value="Germination">
+                    Germination
+                  </option>
+
+                  <option value="Vegetative">
+                    Vegetative
+                  </option>
+
+                  <option value="Flowering">
+                    Flowering
+                  </option>
+
+                  <option value="Fruiting">
+                    Fruiting
+                  </option>
+
+                  <option value="Maturity">
+                    Maturity
+                  </option>
                 </select>
+
               </div>
 
 
+              {/* Farmer Observation */}
+
               <div className="form-field observation-field">
+
                 <label htmlFor="observation">
                   Farmer Observation
                   <span>Optional</span>
@@ -220,8 +345,11 @@ function Diagnose() {
                   placeholder="Describe visible symptoms, changes or concerns..."
                   rows={5}
                 />
+
               </div>
 
+
+              {/* Error */}
 
               {error && (
                 <div className="diagnose-error">
@@ -230,12 +358,15 @@ function Diagnose() {
               )}
 
 
+              {/* Analyze */}
+
               <button
                 type="button"
                 className="diagnose-button"
                 disabled={!image || loading}
                 onClick={handleDiagnosis}
               >
+
                 {loading ? (
                   <>
                     <span className="button-spinner"></span>
@@ -244,6 +375,7 @@ function Diagnose() {
                 ) : (
                   "Run Crop Assessment →"
                 )}
+
               </button>
 
             </div>
@@ -253,57 +385,103 @@ function Diagnose() {
         </section>
 
 
-        {/* Result */}
+        {/* ==============================
+            DIAGNOSIS RESULT
+            ============================== */}
+
         {result && (
           <section className="diagnosis-result">
+
+            {/* Result Header */}
 
             <div className="result-header">
 
               <div>
-                <p className="eyebrow">03 · ASSESSMENT RESULT</p>
 
-                <h2>Crop Health Assessment</h2>
+                <p className="eyebrow">
+                  03 · ASSESSMENT RESULT
+                </p>
+
+                <h2>
+                  Crop Health Assessment
+                </h2>
 
                 <p>
                   Assessment generated from the submitted crop image
                   and field context.
                 </p>
+
               </div>
 
               <span className="result-badge">
-                Mock Assessment
+                Assessment Complete
               </span>
 
             </div>
 
 
-            {/* Summary */}
+            {/* ==============================
+                IMAGE QUALITY
+                ============================== */}
+
+            <div className="diagnosis-quality">
+
+              <div>
+                <span>Image Quality</span>
+
+                <strong>
+                  {result.image_quality.status === "valid"
+                    ? "Valid"
+                    : "Needs Review"}
+                </strong>
+              </div>
+
+              {result.image_quality.reason && (
+                <p>
+                  {result.image_quality.reason}
+                </p>
+              )}
+
+            </div>
+
+
+            {/* ==============================
+                SUMMARY
+                ============================== */}
+
             {result.assessment && (
               <div className="diagnosis-summary">
 
                 <div className="result-metric">
                   <span>Crop</span>
+
                   <strong>
                     {result.assessment.crop}
                   </strong>
                 </div>
 
+
                 <div className="result-metric">
                   <span>Condition</span>
+
                   <strong>
                     {result.assessment.condition}
                   </strong>
                 </div>
 
+
                 <div className="result-metric">
                   <span>Confidence</span>
+
                   <strong>
                     {(result.assessment.confidence * 100).toFixed(0)}%
                   </strong>
                 </div>
 
+
                 <div className="result-metric">
                   <span>Severity</span>
+
                   <strong>
                     {result.assessment.severity}
                   </strong>
@@ -313,69 +491,117 @@ function Diagnose() {
             )}
 
 
-            {/* Analysis Details */}
+            {/* ==============================
+                ANALYSIS DETAILS
+                ============================== */}
+
             {result.assessment && (
               <div className="diagnosis-details">
 
-                <div className="detail-block">
-                  <p className="eyebrow">OBSERVATIONS</p>
+                {/* Visual Observations */}
 
-                  <h3>Visual Observations</h3>
+                <div className="detail-block">
+
+                  <p className="eyebrow">
+                    OBSERVATIONS
+                  </p>
+
+                  <h3>
+                    Visual Observations
+                  </h3>
 
                   <ul>
                     {result.assessment.visual_observations.map(
                       (item, index) => (
-                        <li key={index}>{item}</li>
+                        <li key={index}>
+                          {item}
+                        </li>
                       )
                     )}
                   </ul>
+
                 </div>
 
 
-                <div className="detail-block">
-                  <p className="eyebrow">POSSIBLE FACTORS</p>
+                {/* Possible Causes */}
 
-                  <h3>Possible Causes</h3>
+                <div className="detail-block">
+
+                  <p className="eyebrow">
+                    POSSIBLE FACTORS
+                  </p>
+
+                  <h3>
+                    Possible Causes
+                  </h3>
 
                   <ul>
                     {result.assessment.possible_causes.map(
                       (item, index) => (
-                        <li key={index}>{item}</li>
+                        <li key={index}>
+                          {item}
+                        </li>
                       )
                     )}
                   </ul>
+
                 </div>
 
               </div>
             )}
 
 
-            {/* Immediate Actions */}
+            {/* ==============================
+                IMMEDIATE ACTIONS
+                ============================== */}
+
             <div className="action-section">
 
-              <p className="eyebrow">IMMEDIATE ACTION</p>
+              <p className="eyebrow">
+                IMMEDIATE ACTION
+              </p>
 
-              <h3>What to do now</h3>
+              <h3>
+                What to do now
+              </h3>
 
               <div className="action-list">
+
                 {result.immediate_actions.map(
                   (action, index) => (
-                    <div className="action-item" key={index}>
-                      <span>{index + 1}</span>
-                      <p>{action}</p>
+
+                    <div
+                      className="action-item"
+                      key={index}
+                    >
+
+                      <span>
+                        {index + 1}
+                      </span>
+
+                      <p>
+                        {action}
+                      </p>
+
                     </div>
+
                   )
                 )}
+
               </div>
 
             </div>
 
 
-            {/* Regenerative Response */}
+            {/* ==============================
+                REGENERATIVE RESPONSE
+                ============================== */}
+
             {result.regenerative_response && (
               <div className="regenerative-result">
 
                 <div>
+
                   <p className="eyebrow">
                     REGENERATIVE RESPONSE
                   </p>
@@ -387,50 +613,53 @@ function Diagnose() {
                   <p>
                     {result.regenerative_response.why}
                   </p>
+
                 </div>
+
 
                 <div className="regenerative-meta">
 
                   <div>
-                    <span>Expected Benefit</span>
+
+                    <span>
+                      Expected Benefit
+                    </span>
 
                     <strong>
-                      {result.regenerative_response.expected_benefit}
+                      {
+                        result.regenerative_response
+                          .expected_benefit
+                      }
                     </strong>
+
                   </div>
 
+
                   <div>
-                    <span>Monitoring Period</span>
+
+                    <span>
+                      Monitoring Period
+                    </span>
 
                     <strong>
-                      {result.regenerative_response.monitoring_period}
+                      {
+                        result.regenerative_response
+                          .monitoring_period
+                      }
                     </strong>
+
                   </div>
 
                 </div>
 
               </div>
             )}
-
-
-            {/* Evidence */}
-            <div className="evidence-section">
-
-              <p className="eyebrow">EVIDENCE</p>
-
-              <h3>Assessment Sources</h3>
-
-              {result.evidence.map((item, index) => (
-                <div className="evidence-item" key={index}>
-
-                  <strong>{item.source}</strong>
-
-                  <span>{item.data_used}</span>
-
-                </div>
-              ))}
-
-            </div>
+            <a
+  href="/advisory"
+  className="diagnose-advisory-button"
+>
+  Continue to Regenerative Advisory →
+</a>
 
           </section>
         )}

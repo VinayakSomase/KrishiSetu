@@ -108,7 +108,7 @@ function Dashboard() {
           <div>
             <span>Last Analysis</span>
             <strong>
-              {new Date(farm.last_analysis).toLocaleDateString()}
+              {farm.last_analysis}
             </strong>
           </div>
 
@@ -188,11 +188,34 @@ function Dashboard() {
               <p>Current soil condition</p>
             </article>
 
+
+            <article className="metric-card">
+              <span>Climate Stress</span>
+
+              <strong>
+                {field_health.climate_stress ?? "—"}
+              </strong>
+
+              <p>Environmental stress level</p>
+            </article>
+
+
+            <article className="metric-card">
+              <span>Disease Risk</span>
+
+              <strong>
+                {field_health.disease_risk ?? "—"}
+              </strong>
+
+              <p>Crop disease risk</p>
+            </article>
+
           </div>
 
         </section>
 
-                {/* Field Map */}
+
+        {/* Field Map */}
         <FieldMap />
 
 
@@ -200,236 +223,366 @@ function Dashboard() {
         <section className="data-grid">
 
           {/* Weather */}
-          <article className="dashboard-card">
+<article className="dashboard-card">
 
-            <div className="card-header">
+  <div className="card-header">
 
-              <div>
-                <p className="eyebrow">ENVIRONMENT</p>
-                <h2>Weather</h2>
-              </div>
+    <div>
+      <p className="eyebrow">ENVIRONMENT</p>
+      <h2>Weather</h2>
+    </div>
 
-              <span className="data-source">
-                {weather.source ?? "Weather Data"}
-              </span>
+    <span className="data-source">
+      <span className="data-source">
+  Weather Data
+</span>
+    </span>
 
-            </div>
-
-
-            <div className="weather-main">
-
-              <strong>
-                {weather.current.temperature ?? "—"}°C
-              </strong>
-
-              <span>Current temperature</span>
-
-            </div>
+  </div>
 
 
-            <div className="weather-stats">
+  {/* Current Weather */}
+  <div className="weather-main">
 
-              <div>
-                <span>Humidity</span>
+    <strong>
+      {weather.current.temperature ?? "—"}°C
+    </strong>
 
-                <strong>
-                  {weather.current.humidity ?? "—"}%
-                </strong>
-              </div>
+    <span>
+      Current temperature
+    </span>
 
-
-              <div>
-                <span>Rainfall</span>
-
-                <strong>
-                  {weather.current.rainfall ?? "—"} mm
-                </strong>
-              </div>
+  </div>
 
 
-              <div>
-                <span>Wind</span>
+  {/* Current Weather Indicators */}
+  <div className="weather-stats">
 
-                <strong>
-                  {weather.current.wind_speed ?? "—"} km/h
-                </strong>
-              </div>
+    <div>
+      <span>Humidity</span>
 
-            </div>
+      <strong>
+        {weather.current.humidity ?? "—"}%
+      </strong>
+    </div>
 
-          </article>
+
+    <div>
+      <span>Rainfall</span>
+
+      <strong>
+        {weather.current.rainfall ?? "—"} mm
+      </strong>
+    </div>
+
+
+    <div>
+      <span>Wind</span>
+
+      <strong>
+        {weather.current.wind_speed ?? "—"} km/h
+      </strong>
+    </div>
+
+  </div>
+
+
+  {/* 7-Day Weather Forecast */}
+  <div className="weather-forecast">
+
+    <div className="forecast-title">
+      <span>7-DAY FORECAST</span>
+      <small>Upcoming environmental conditions</small>
+    </div>
+
+
+    <div className="forecast-header">
+      <span>Day</span>
+      <span>Temperature</span>
+      <span>Rain Probability</span>
+    </div>
+
+
+    {weather.forecast.map((day, index) => (
+
+      <div
+        className="forecast-row"
+        key={`${day.date}-${index}`}
+      >
+
+        {/* Day */}
+        <div className="forecast-day">
+          <strong>
+            {day.date}
+          </strong>
+        </div>
+
+
+        {/* Temperature */}
+        <div className="forecast-temperature">
+
+          <strong>
+            {day.temperature ?? "—"}°C
+          </strong>
+
+        </div>
+
+
+        {/* Rain */}
+        <div className="forecast-rain">
+
+          <strong>
+            {day.rainfall_probability ?? "—"}%
+          </strong>
+
+          <span>
+            {day.rainfall ?? "—"} mm
+          </span>
+
+        </div>
+
+      </div>
+
+    ))}
+
+  </div>
+
+</article>
 
 
           {/* Soil */}
-          <article className="dashboard-card">
+<article className="dashboard-card">
 
-            <div className="card-header">
+  <div className="card-header">
 
-              <div>
-                <p className="eyebrow">SOIL CONDITION</p>
-                <h2>Soil Intelligence</h2>
-              </div>
+    <div>
+      <p className="eyebrow">SOIL CONDITION</p>
+      <h2>Soil Intelligence</h2>
+    </div>
 
-              <span className="data-source">
-                Soil Data
-              </span>
+    <span className="data-source">
+      Soil Data
+    </span>
 
-            </div>
-
-
-            <div className="soil-summary">
-
-              <div>
-                <span>Soil Type</span>
-
-                <strong>
-                  {soil.soil_type ?? "Unavailable"}
-                </strong>
-              </div>
+  </div>
 
 
-              <div>
-                <span>pH</span>
+  {/* Basic Soil Profile */}
+  <div className="soil-summary">
 
-                <strong>
-                  {soil.ph.value ?? "—"}
-                </strong>
-              </div>
+    <div>
+      <span>Soil Type</span>
 
-
-              <div>
-                <span>Organic Carbon</span>
-
-                <strong>
-                  {soil.organic_carbon.value ?? "—"}
-                  {soil.organic_carbon.value !== null ? "%" : ""}
-                </strong>
-              </div>
-
-            </div>
+      <strong>
+        {soil.soil_type ?? "Unavailable"}
+      </strong>
+    </div>
 
 
-            <div className="soil-nutrients">
+    <div>
+      <span>pH</span>
 
-              <div>
-                <span>Nitrogen</span>
-
-                <strong>
-                  {soil.nitrogen.value ?? "—"}
-                </strong>
-              </div>
+      <strong>
+        {soil.ph.value ?? "—"}
+      </strong>
+    </div>
 
 
-              <div>
-                <span>Phosphorus</span>
+    <div>
+      <span>Organic Carbon</span>
 
-                <strong>
-                  {soil.phosphorus.value ?? "—"}
-                </strong>
-              </div>
+      <strong>
+        {soil.organic_carbon.value ?? "—"}
+        {soil.organic_carbon.value !== null ? "%" : ""}
+      </strong>
+    </div>
+
+  </div>
 
 
-              <div>
-                <span>Potassium</span>
+  {/* Soil Nutrients */}
+  <div className="soil-nutrients">
 
-                <strong>
-                  {soil.potassium.value ?? "—"}
-                </strong>
-              </div>
+    <div>
+      <span>Nitrogen</span>
 
-            </div>
+      <strong>
+        {soil.nitrogen.value ?? "—"}
+      </strong>
+    </div>
 
-          </article>
 
+    <div>
+      <span>Phosphorus</span>
+
+      <strong>
+        {soil.phosphorus.value ?? "—"}
+      </strong>
+    </div>
+
+
+    <div>
+      <span>Potassium</span>
+
+      <strong>
+        {soil.potassium.value ?? "—"}
+      </strong>
+    </div>
+
+  </div>
+
+
+  {/* Soil Moisture */}
+  <div className="soil-health-panel">
+
+  <div className="soil-health-header">
+
+    <div>
+      <span>Soil Moisture</span>
+
+      <strong>
+        {field_health.soil_moisture.value ?? "—"}
+        {field_health.soil_moisture.value !== null ? "%" : ""}
+      </strong>
+    </div>
+
+    <div className="soil-health-status">
+      <span>Soil Health</span>
+
+      <strong>
+        {soil.health_status}
+      </strong>
+    </div>
+
+  </div>
+
+
+  <div className="soil-health-divider"></div>
+
+
+  <div className="soil-assessment">
+
+    <div>
+      <span>Moisture</span>
+      <strong>
+        {field_health.soil_moisture.value ?? "—"}%
+      </strong>
+    </div>
+
+    <div>
+      <span>Organic Carbon</span>
+      <strong>
+        {soil.organic_carbon.value ?? "—"}%
+      </strong>
+    </div>
+
+    <div>
+      <span>pH Level</span>
+      <strong>
+        {soil.ph.value ?? "—"}
+      </strong>
+    </div>
+
+  </div>
+
+
+  <div className="soil-health-divider"></div>
+
+
+  <p>
+    Soil health is assessed using available moisture,
+    nutrient, pH, and organic carbon indicators.
+  </p>
+
+</div>
+
+</article>
         </section>
 
 
-        {/* Risks */}
-        <section className="dashboard-card">
-
-          <div className="card-header">
-
-            <div>
-              <p className="eyebrow">EARLY WARNING</p>
-              <h2>Field Risks</h2>
-            </div>
-
-            <span className="data-source">
-              Risk Analysis
-            </span>
-
-          </div>
 
 
-          <div className="risk-list">
+      {/* Advisory Preview */}
+<section className="advisory-preview">
 
-            {risks.map((risk, index) => (
+  <div className="advisory-preview-header">
 
-              <div className="risk-item" key={`${risk.type}-${index}`}>
+    <div>
+      <p className="eyebrow">
+        REGENERATIVE ADVISORY
+      </p>
 
-                <div>
+      <h2>
+        What should you do now?
+      </h2>
+    </div>
 
-                  <strong>
-                    {risk.type
-                      .replaceAll("_", " ")
-                      .replace(/\b\w/g, (letter) =>
-                        letter.toUpperCase()
-                      )}
-                  </strong>
-
-                  <p>
-                    {risk.reason}
-                  </p>
-
-                </div>
+  
+  </div>
 
 
-                <span
-                  className={
-                    risk.level === "low"
-                      ? "risk-low"
-                      : risk.level === "moderate"
-                      ? "risk-moderate"
-                      : "risk-high"
-                  }
-                >
-                  {risk.level}
-                </span>
+  <div className="advisory-preview-grid">
 
-              </div>
+    {/* Why */}
+    <div className="advisory-preview-item">
 
-            ))}
+      <span>Why this is happening</span>
 
-          </div>
+      <p>
+        {advisory_preview.why || "Data unavailable"}
+      </p>
 
-        </section>
+    </div>
 
 
-        {/* Advisory Preview */}
-        <section className="advisory-preview">
+    {/* Do Now */}
+    <div className="advisory-preview-item">
 
-          <div>
+      <span>Do this now</span>
 
-            <p className="eyebrow">
-              REGENERATIVE ADVISORY
-            </p>
+      <p>
+        {advisory_preview.do_now || "Data unavailable"}
+      </p>
 
-            <h2>
-              What should you do now?
-            </h2>
-
-            <p>
-              {advisory_preview.why}
-            </p>
-
-          </div>
+    </div>
 
 
-          <a href="/advisory">
-            View Advisory →
-          </a>
+    {/* Regenerative Action */}
+    <div className="advisory-preview-item">
 
-        </section>
+      <span>Regenerative action</span>
+
+      <p>
+        {advisory_preview.regenerative_action || "Data unavailable"}
+      </p>
+
+    </div>
+
+
+    {/* Monitor */}
+    <div className="advisory-preview-item">
+
+      <span>Monitor</span>
+
+      <p>
+        {advisory_preview.monitor || "Data unavailable"}
+      </p>
+
+    </div>
+
+  </div>
+
+<div className="advisory-preview-footer">
+  <a href="/diagnose" className="advisory-diagnosis-button">
+    Run Crop Diagnosis →
+  </a>
+
+  <a href="/advisory">
+    View Full Advisory →
+  </a>
+</div>
+
+</section>
 
       </main>
     </div>

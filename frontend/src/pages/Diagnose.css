@@ -6,7 +6,6 @@
   max-width: 1500px;
 }
 
-
 /* ---------- Header ---------- */
 
 .diagnose-header {
@@ -42,7 +41,6 @@
   background: #3c8a62;
 }
 
-
 /* ---------- Workspace ---------- */
 
 .diagnose-workspace {
@@ -67,7 +65,6 @@
 .panel-heading h2 {
   margin: 5px 0 0;
 }
-
 
 /* ---------- Image Upload ---------- */
 
@@ -170,7 +167,6 @@
   cursor: pointer;
 }
 
-
 /* ---------- Form ---------- */
 
 .diagnose-form {
@@ -235,7 +231,6 @@
   color: #9aa8a2;
 }
 
-
 /* ---------- Button ---------- */
 
 .diagnose-button {
@@ -291,28 +286,34 @@
   font-size: 13px;
 }
 
-
-/* ---------- Result ---------- */
+/* ==========================================
+   ASSESSMENT RESULT
+   ========================================== */
 
 .diagnosis-result {
   margin-bottom: 40px;
-  padding: 28px;
-  border: 1px solid #dce6e0;
-  border-radius: 14px;
+  padding: 30px;
+  border: 1px solid #d8e4de;
+  border-radius: 16px;
   background: #ffffff;
 }
+
+/* ---------- Result Header ---------- */
 
 .result-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  padding-bottom: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #e4ebe7;
 }
 
 .result-header h2 {
   margin: 5px 0 7px;
+  color: #123b2d;
+  font-size: 25px;
 }
 
 .result-header > div > p:last-child {
@@ -322,28 +323,75 @@
 }
 
 .result-badge {
-  padding: 7px 11px;
-  border-radius: 6px;
-  background: #eef4f0;
-  color: #496d5b;
-  font-size: 11px;
+  padding: 9px 13px;
+  border-radius: 8px;
+  background: #edf5f0;
+  color: #286047;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
 
+/* ==========================================
+   IMAGE QUALITY
+   ========================================== */
 
-/* ---------- Result Metrics ---------- */
+.diagnosis-quality {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+  padding: 13px 17px;
+  border: 1px solid #dfe8e3;
+  border-radius: 10px;
+  background: #f7faf8;
+}
+
+.diagnosis-quality > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.diagnosis-quality span {
+  color: #74877e;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.diagnosis-quality strong {
+  color: #276047;
+  font-size: 14px;
+}
+
+.diagnosis-quality p {
+  margin: 0;
+  color: #71847a;
+  font-size: 12px;
+  text-align: right;
+}
+
+/* ==========================================
+   RESULT SUMMARY
+   ========================================== */
 
 .diagnosis-summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid #e4ebe7;
+  grid-template-columns: 0.8fr 1.6fr 0.8fr 0.8fr;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 1px solid #dfe8e3;
+  border-radius: 12px;
+  background: #fbfcfb;
 }
 
 .result-metric {
-  min-height: 105px;
+  min-height: 110px;
   padding: 20px;
-  border-right: 1px solid #e4ebe7;
+  border-right: 1px solid #dfe8e3;
 }
 
 .result-metric:last-child {
@@ -353,53 +401,77 @@
 .result-metric span {
   display: block;
   margin-bottom: 9px;
-  color: #7b8d84;
+  color: #778a81;
   font-size: 12px;
 }
 
 .result-metric strong {
   display: block;
-  color: #183b2e;
-  font-size: 18px;
+  color: #123b2d;
+  font-size: 19px;
   line-height: 1.35;
 }
 
+.result-metric:nth-child(2) strong {
+  max-width: 270px;
+  font-size: 16px;
+}
 
-/* ---------- Details ---------- */
+/* ==========================================
+   OBSERVATIONS / POSSIBLE CAUSES
+   ========================================== */
 
 .diagnosis-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  padding: 28px 0;
-  border-bottom: 1px solid #e4ebe7;
+  gap: 18px;
+  padding: 0 0 25px;
+  border-bottom: 1px solid #e3ebe6;
 }
 
-.detail-block h3,
-.action-section h3,
-.evidence-section h3 {
-  margin: 5px 0 14px;
-  color: #183b2e;
+.detail-block {
+  min-height: 165px;
+  padding: 21px;
+  border: 1px solid #dfe8e3;
+  border-radius: 12px;
+  background: #fbfcfb;
+}
+
+.detail-block h3 {
+  margin: 5px 0 15px;
+  color: #123b2d;
+  font-size: 18px;
 }
 
 .detail-block ul {
   margin: 0;
-  padding-left: 19px;
+  padding-left: 18px;
 }
 
 .detail-block li {
   margin-bottom: 9px;
-  color: #62766b;
+  color: #5f756a;
   font-size: 13px;
   line-height: 1.55;
 }
 
+.detail-block li:last-child {
+  margin-bottom: 0;
+}
 
-/* ---------- Actions ---------- */
+/* ==========================================
+   IMMEDIATE ACTION
+   ========================================== */
 
 .action-section {
-  padding: 28px 0;
+  padding: 26px 0;
   border-bottom: 1px solid #e4ebe7;
+}
+
+.action-section h3 {
+  margin: 5px 0 16px;
+  color: #123b2d;
+  font-size: 20px;
 }
 
 .action-list {
@@ -412,8 +484,8 @@
   align-items: center;
   gap: 13px;
   padding: 13px 15px;
-  border: 1px solid #e2e9e5;
-  border-radius: 8px;
+  border: 1px solid #dfe8e3;
+  border-radius: 9px;
   background: #fafcfb;
 }
 
@@ -422,11 +494,11 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: #e2eee7;
-  color: #2d654d;
+  background: #e3efe8;
+  color: #286149;
   font-size: 11px;
   font-weight: 700;
 }
@@ -437,42 +509,51 @@
   font-size: 13px;
 }
 
-
-/* ---------- Regenerative Response ---------- */
+/* ==========================================
+   REGENERATIVE RESPONSE
+   ========================================== */
 
 .regenerative-result {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1.35fr 0.65fr;
   gap: 30px;
-  margin-top: 28px;
-  padding: 22px;
+  margin-top: 26px;
+  padding: 26px;
   border: 1px solid #cfe1d7;
-  border-radius: 10px;
-  background: #f2f8f4;
+  border-radius: 14px;
+  background: #f3f9f5;
+}
+
+.regenerative-result > div:first-child {
+  padding-right: 25px;
+  border-right: 1px solid #d8e7df;
 }
 
 .regenerative-result h3 {
-  margin: 5px 0 10px;
-  color: #1e513c;
+  margin: 6px 0 10px;
+  color: #164936;
+  font-size: 21px;
+  line-height: 1.35;
 }
 
 .regenerative-result p:not(.eyebrow) {
   margin: 0;
-  color: #60776b;
+  max-width: 650px;
+  color: #60786c;
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .regenerative-meta {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   justify-content: center;
+  gap: 16px;
 }
 
 .regenerative-meta div {
-  padding-bottom: 13px;
-  border-bottom: 1px solid #d6e5dc;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d7e5dd;
 }
 
 .regenerative-meta div:last-child {
@@ -483,94 +564,127 @@
 .regenerative-meta span {
   display: block;
   margin-bottom: 5px;
-  color: #70857a;
+  color: #71877c;
   font-size: 11px;
 }
 
 .regenerative-meta strong {
-  color: #285943;
+  display: block;
+  color: #245941;
   font-size: 13px;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
-
-/* ---------- Evidence ---------- */
+/* ==========================================
+   EVIDENCE / ASSESSMENT SOURCES
+   ========================================== */
 
 .evidence-section {
+  margin-top: 32px;
   padding-top: 28px;
+  border-top: 1px solid #e1e9e4;
 }
+
+.evidence-section > .eyebrow {
+  margin-bottom: 6px;
+}
+
+.evidence-section h3 {
+  margin: 0 0 20px;
+  color: #123b2d;
+  font-size: 21px;
+  line-height: 1.3;
+}
+
+/* Source list */
 
 .evidence-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px 0;
-  border-bottom: 1px solid #edf1ee;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  align-items: center;
+  gap: 28px;
+
+  min-height: 64px;
+  padding: 16px 20px;
+
+  border: 1px solid #dce7e1;
+  border-radius: 10px;
+
+  background: #fbfcfb;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
 }
+
+.evidence-item + .evidence-item {
+  margin-top: 10px;
+}
+
+.evidence-item:hover {
+  border-color: #bfd4c8;
+  background: #f7faf8;
+  transform: translateY(-1px);
+}
+
+/* Source name */
 
 .evidence-item strong {
-  color: #365749;
+  display: block;
+  color: #1d5540;
   font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
 }
+
+/* What information was used */
 
 .evidence-item span {
-  color: #7a8b83;
-  font-size: 12px;
+  display: block;
+  color: #6d8177;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
+/* Small visual separator */
+
+.evidence-item strong::before {
+  content: "SOURCE";
+  display: block;
+  margin-bottom: 5px;
+
+  color: #8a9b93;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 1000px) {
-  .diagnose-workspace {
+@media (max-width: 800px) {
+  .evidence-item {
     grid-template-columns: 1fr;
-  }
-
-  .diagnosis-summary {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .result-metric:nth-child(2) {
-    border-right: none;
-  }
-
-  .diagnosis-details {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-
-  .regenerative-result {
-    grid-template-columns: 1fr;
+    gap: 7px;
   }
 }
-
-@media (max-width: 650px) {
-  .diagnose-header {
-    flex-direction: column;
-  }
-
-  .diagnose-image-panel,
-  .diagnose-context-panel,
-  .diagnosis-result {
-    padding: 18px;
-  }
-
-  .diagnosis-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .result-metric {
-    border-right: none;
-    border-bottom: 1px solid #e4ebe7;
-  }
-
-  .result-metric:last-child {
-    border-bottom: none;
-  }
-
-  .image-upload-area,
-  .crop-image-preview {
-    min-height: 280px;
-    height: 280px;
-  }
+.diagnose-advisory-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: 24px 0 0 auto;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: #216044;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
+
+.diagnose-advisory-button:hover {
+  background: #194d37;
+  transform: translateY(-1px);
+} 

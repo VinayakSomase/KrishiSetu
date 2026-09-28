@@ -37,6 +37,7 @@ function Advisory() {
     return (
       <div className="app-layout">
         <Sidebar />
+
         <main className="dashboard">
           <p>Loading regenerative advisory...</p>
         </main>
@@ -48,6 +49,7 @@ function Advisory() {
     return (
       <div className="app-layout">
         <Sidebar />
+
         <main className="dashboard">
           <p>{error || "No advisory available."}</p>
         </main>
@@ -57,23 +59,33 @@ function Advisory() {
 
   const sections = [
     {
+      number: "01",
       title: "Immediate Action",
+      description: "Actions to address the current field condition.",
       items: data.sections.immediate_action,
     },
     {
+      number: "02",
       title: "Regenerative Action",
+      description: "Practices that improve long-term field resilience.",
       items: data.sections.regenerative_action,
     },
     {
+      number: "03",
       title: "Water Management",
+      description: "Actions for efficient soil moisture and water use.",
       items: data.sections.water_management,
     },
     {
+      number: "04",
       title: "Soil Management",
+      description: "Practices for maintaining soil quality and fertility.",
       items: data.sections.soil_management,
     },
     {
+      number: "05",
       title: "Pest & Disease Management",
+      description: "Preventive actions based on current risk conditions.",
       items: data.sections.pest_disease_management,
     },
   ];
@@ -82,9 +94,12 @@ function Advisory() {
     <div className="app-layout">
       <Sidebar />
 
-      <main className="dashboard">
+      <main className="dashboard advisory-page">
 
-        {/* Header */}
+        {/* ==========================================
+            HEADER
+            ========================================== */}
+
         <header className="dashboard-header">
           <div>
             <p className="eyebrow">REGENERATIVE ADVISORY</p>
@@ -92,186 +107,252 @@ function Advisory() {
             <h1>Farm Action Plan</h1>
 
             <p className="subtitle">
-              Localized recommendations based on the current farm context
-              and field conditions.
+              Localized recommendations based on field conditions,
+              environmental signals, and crop context.
             </p>
           </div>
 
           <div className="farm-selector">
             <span>Current Farm</span>
-            <strong>Nashik, Maharashtra</strong>
+
+            <strong>
+              Nashik, Maharashtra
+            </strong>
           </div>
+          <a href="/diagnose" className="advisory-back-button">
+  ← Back to Crop Diagnostics
+</a>
         </header>
 
 
-        {/* Current Condition */}
-        <section className="dashboard-card">
-          <div className="card-header">
-            <div>
-              <p className="eyebrow">CURRENT CONDITION</p>
-              <h2>What is happening?</h2>
-            </div>
+        {/* ==========================================
+            CURRENT CONDITION
+            ========================================== */}
 
-            <span className="data-source">
-              Field Intelligence
-            </span>
+        <section className="advisory-condition">
+
+          <div className="advisory-condition-main">
+
+            <p className="eyebrow">
+              CURRENT FIELD CONDITION
+            </p>
+
+            <h2>
+              What is happening?
+            </h2>
+
+            <p>
+              {data.current_condition}
+            </p>
+
           </div>
 
-          <p style={{ marginBottom: "12px" }}>
-            {data.current_condition}
-          </p>
 
-          <p style={{ margin: 0 }}>
-            <strong>Risk context:</strong>{" "}
-            {data.risk_explanation}
-          </p>
+          <div className="advisory-risk">
+
+            <span>
+              Risk Context
+            </span>
+
+            <p>
+              {data.risk_explanation}
+            </p>
+
+          </div>
+
         </section>
 
 
-        {/* Recommendations */}
-        <section style={{ marginTop: "24px" }}>
+        {/* ==========================================
+            ACTION PLAN
+            ========================================== */}
+
+        <section className="advisory-actions">
 
           <div className="section-heading">
+
             <div>
-              <p className="eyebrow">RECOMMENDATIONS</p>
-              <h2>What should you do?</h2>
+              <p className="eyebrow">
+                FARM ACTION PLAN
+              </p>
+
+              <h2>
+                Recommended Actions
+              </h2>
             </div>
+
+            <span className="advisory-action-count">
+              {sections.reduce(
+                (total, section) =>
+                  total + section.items.length,
+                0
+              )}{" "}
+              recommendations
+            </span>
+
           </div>
 
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-              gap: "16px",
-            }}
-          >
+          <div className="advisory-section-grid">
 
             {sections.map((section) => (
+
               <article
-                className="dashboard-card"
+                className="advisory-section-card"
                 key={section.title}
               >
-                <div className="card-header">
-                  <h3 style={{ margin: 0 }}>
-                    {section.title}
-                  </h3>
 
-                  <span className="data-source">
-                    {section.items.length} action
-                    {section.items.length !== 1 ? "s" : ""}
-                  </span>
+                <div className="advisory-section-header">
+
+                  <div className="advisory-section-number">
+                    {section.number}
+                  </div>
+
+                  <div>
+                    <h3>
+                      {section.title}
+                    </h3>
+
+                    <p>
+                      {section.description}
+                    </p>
+                  </div>
+
                 </div>
 
 
-                {section.items.map((item, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      paddingTop: index === 0 ? "4px" : "18px",
-                      marginTop: index === 0 ? "0" : "18px",
-                      borderTop:
-                        index === 0
-                          ? "none"
-                          : "1px solid #e4ebe7",
-                    }}
-                  >
-                    <strong>{item.recommendation}</strong>
+                <div className="advisory-recommendations">
 
-                    <p style={{ margin: "8px 0" }}>
-                      {item.why}
-                    </p>
+                  {section.items.map((item, index) => (
 
-                    <small>
-                      <strong>Expected effect:</strong>{" "}
-                      {item.expected_effect}
-                    </small>
+                    <div
+                      className="advisory-recommendation"
+                      key={index}
+                    >
 
-                    <p style={{ margin: "8px 0 0" }}>
-                      <strong>Monitor:</strong>{" "}
-                      {item.monitor}
-                    </p>
-                  </div>
-                ))}
+                      <div className="recommendation-title">
+                        <span>
+                          {index + 1}
+                        </span>
+
+                        <strong>
+                          {item.recommendation}
+                        </strong>
+                      </div>
+
+
+                      <p className="recommendation-why">
+                        {item.why}
+                      </p>
+
+
+                      <div className="recommendation-meta">
+
+                        <div>
+                          <span>
+                            Expected Effect
+                          </span>
+
+                          <p>
+                            {item.expected_effect}
+                          </p>
+                        </div>
+
+
+                        <div>
+                          <span>
+                            Monitor
+                          </span>
+
+                          <p>
+                            {item.monitor}
+                          </p>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  ))}
+
+                </div>
+
               </article>
+
             ))}
 
           </div>
+
         </section>
 
 
-        {/* Monitoring */}
-        <section
-          className="dashboard-card"
-          style={{ marginTop: "24px" }}
-        >
-          <div className="card-header">
+        {/* ==========================================
+            MONITORING PLAN
+            ========================================== */}
+
+        <section className="advisory-monitoring">
+
+          <div className="section-heading">
+
             <div>
-              <p className="eyebrow">MONITORING PLAN</p>
-              <h2>Expected Indicators</h2>
+              <p className="eyebrow">
+                MONITORING PLAN
+              </p>
+
+              <h2>
+                Expected Indicators
+              </h2>
             </div>
 
             <span className="data-source">
               Track over time
             </span>
+
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(2, minmax(0, 1fr))",
-              gap: "12px",
-            }}
+
+          <div className="indicator-grid">
+
+            {data.expected_indicators.map(
+              (indicator, index) => (
+
+                <div
+                  className="indicator-card"
+                  key={index}
+                >
+
+                  <span>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <p>
+                    {indicator}
+                  </p>
+
+                </div>
+
+              )
+            )}
+
+          </div>
+
+        </section>
+
+
+        {/* ==========================================
+            CONTINUE
+            ========================================== */}
+
+        <div className="advisory-footer">
+
+          <a
+            href="/knowledge"
+            className="advisory-next-button"
           >
-            {data.expected_indicators.map((indicator, index) => (
-              <div
-                key={index}
-                style={{
-                  padding: "14px",
-                  border: "1px solid #e2e9e5",
-                  borderRadius: "8px",
-                  background: "#fafcfb",
-                }}
-              >
-                {indicator}
-              </div>
-            ))}
-          </div>
-        </section>
+            Explore Agricultural Knowledge →
+          </a>
 
-
-        {/* Evidence */}
-        <section
-          className="dashboard-card"
-          style={{ marginTop: "24px" }}
-        >
-          <div className="card-header">
-            <div>
-              <p className="eyebrow">EVIDENCE</p>
-              <h2>Information Used</h2>
-            </div>
-          </div>
-
-          {data.evidence.map((item, index) => (
-            <div
-              key={index}
-              style={{
-                padding: "12px 0",
-                borderBottom:
-                  index === data.evidence.length - 1
-                    ? "none"
-                    : "1px solid #e4ebe7",
-              }}
-            >
-              <strong>{item.source}</strong>
-
-              <p style={{ margin: "5px 0 0" }}>
-                {item.data_used}
-              </p>
-            </div>
-          ))}
-        </section>
+        </div>
 
       </main>
     </div>

@@ -34,7 +34,9 @@ function Knowledge() {
       setResults(response.results);
     } catch (err) {
       console.error("Knowledge search failed:", err);
-      setError("Unable to search the agricultural knowledge base.");
+      setError(
+        "Unable to search the agricultural knowledge base."
+      );
     } finally {
       setSearching(false);
     }
@@ -80,7 +82,9 @@ function Knowledge() {
       setAdapted(response);
     } catch (err) {
       console.error("Knowledge adaptation failed:", err);
-      setError("Unable to adapt this practice to the local farm.");
+      setError(
+        "Unable to adapt this practice to the local farm."
+      );
     } finally {
       setAdapting(false);
     }
@@ -90,101 +94,96 @@ function Knowledge() {
     <div className="app-layout">
       <Sidebar />
 
-      <main className="dashboard">
+      <main className="dashboard knowledge-page">
 
-        {/* Header */}
+        {/* ==========================================
+            HEADER
+            ========================================== */}
+
         <header className="dashboard-header">
           <div>
-            <p className="eyebrow">AGRICULTURAL KNOWLEDGE EXCHANGE</p>
+            <p className="eyebrow">
+              AGRICULTURAL KNOWLEDGE EXCHANGE
+            </p>
 
-            <h1>Knowledge Exchange</h1>
+            <h1>
+              Knowledge Exchange
+            </h1>
 
             <p className="subtitle">
-              Discover agricultural practices from other regions and
-              adapt them to local farm conditions.
+              Discover agricultural practices from similar
+              regions and adapt them to local farm conditions.
             </p>
           </div>
 
           <div className="farm-selector">
             <span>Local Farm</span>
-            <strong>Nashik, Maharashtra</strong>
+
+            <strong>
+              Nashik, Maharashtra
+            </strong>
           </div>
+          <a href="/diagnose" className="knowledge-back-button">
+  ← Back to Crop Diagnostics
+</a>
         </header>
 
 
-        {/* Search Context */}
-        <section className="dashboard-card">
+        {/* ==========================================
+            SEARCH CONTEXT
+            ========================================== */}
+
+        <section className="knowledge-search-card">
 
           <div className="card-header">
             <div>
-              <p className="eyebrow">01 · SEARCH</p>
-              <h2>Find Similar Practices</h2>
+              <p className="eyebrow">
+                01 · SEARCH
+              </p>
+
+              <h2>
+                Find Similar Practices
+              </h2>
             </div>
 
             <span className="data-source">
-              BRICS Knowledge Base
+              Knowledge Network
             </span>
           </div>
 
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(3, minmax(0, 1fr))",
-              gap: "16px",
-              marginBottom: "20px",
-            }}
-          >
+          <div className="knowledge-context-grid">
 
-            <div>
+            <div className="knowledge-context-item">
               <span>Crop</span>
-              <strong style={{ display: "block", marginTop: "6px" }}>
-                Cotton
-              </strong>
+              <strong>Cotton</strong>
             </div>
 
-            <div>
+            <div className="knowledge-context-item">
               <span>Soil</span>
-              <strong style={{ display: "block", marginTop: "6px" }}>
-                Black Soil
-              </strong>
+              <strong>Black Soil</strong>
             </div>
 
-            <div>
+            <div className="knowledge-context-item">
               <span>Climate</span>
-              <strong style={{ display: "block", marginTop: "6px" }}>
-                Semi-arid
-              </strong>
+              <strong>Semi-arid</strong>
             </div>
 
           </div>
 
 
-          <div style={{ marginBottom: "18px" }}>
-            <label
-              htmlFor="problem"
-              style={{
-                display: "block",
-                marginBottom: "7px",
-                fontWeight: 600,
-              }}
-            >
+          <div className="knowledge-problem">
+
+            <label htmlFor="problem">
               Current Farm Problem
             </label>
 
             <select
               id="problem"
               value={problem}
-              onChange={(event) => setProblem(event.target.value)}
-              style={{
-                width: "100%",
-                maxWidth: "500px",
-                padding: "11px 12px",
-                border: "1px solid #d5e0da",
-                borderRadius: "8px",
-                background: "#fff",
-              }}
+              onChange={(event) =>
+                setProblem(event.target.value)
+              }
             >
               <option value="Water stress">
                 Water stress
@@ -202,22 +201,15 @@ function Knowledge() {
                 Heat stress
               </option>
             </select>
+
           </div>
 
 
           <button
             type="button"
+            className="knowledge-search-button"
             onClick={handleSearch}
             disabled={searching}
-            style={{
-              padding: "11px 18px",
-              border: "none",
-              borderRadius: "8px",
-              background: searching ? "#9fb3a8" : "#216044",
-              color: "#fff",
-              fontWeight: 600,
-              cursor: searching ? "not-allowed" : "pointer",
-            }}
           >
             {searching
               ? "Searching..."
@@ -227,28 +219,26 @@ function Knowledge() {
         </section>
 
 
-        {/* Error */}
+        {/* ==========================================
+            ERROR
+            ========================================== */}
+
         {error && (
-          <div
-            style={{
-              marginTop: "20px",
-              padding: "12px 14px",
-              border: "1px solid #ecd4d4",
-              borderRadius: "8px",
-              background: "#fbf3f3",
-              color: "#914848",
-            }}
-          >
+          <div className="knowledge-error">
             {error}
           </div>
         )}
 
 
-        {/* Search Results */}
+        {/* ==========================================
+            KNOWLEDGE MATCHES
+            ========================================== */}
+
         {results.length > 0 && (
-          <section style={{ marginTop: "28px" }}>
+          <section className="knowledge-results">
 
             <div className="section-heading">
+
               <div>
                 <p className="eyebrow">
                   02 · KNOWLEDGE MATCHES
@@ -259,42 +249,39 @@ function Knowledge() {
                 </h2>
               </div>
 
-              <span>
+              <span className="knowledge-result-count">
                 {results.length} practices found
               </span>
+
             </div>
 
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(2, minmax(0, 1fr))",
-                gap: "16px",
-              }}
-            >
+            <div className="knowledge-result-grid">
 
               {results.map((practice) => (
+
                 <article
-                  className="dashboard-card"
+                  className="knowledge-practice-card"
                   key={practice.id}
                 >
 
-                  <div className="card-header">
+                  {/* Origin */}
+
+                  <div className="knowledge-practice-header">
 
                     <div>
-                      <p className="eyebrow">
+                      <p className="knowledge-origin">
                         {practice.country}
                       </p>
 
-                      <h3 style={{ margin: 0 }}>
+                      <h3>
                         {practice.region}
                       </h3>
                     </div>
 
-                    <span className="data-source">
+                    <span className="knowledge-match">
                       {Math.round(
-                        practice.applicability_score * 100
+                        practice.applicability_score
                       )}
                       % match
                     </span>
@@ -302,98 +289,66 @@ function Knowledge() {
                   </div>
 
 
-                  <div style={{ marginBottom: "15px" }}>
+                  {/* Practice */}
+
+                  <div className="knowledge-practice-body">
+
+                    <p className="knowledge-practice-label">
+                      AGRICULTURAL PRACTICE
+                    </p>
 
                     <strong>
                       {practice.practice}
                     </strong>
 
-                    <p style={{ margin: "8px 0" }}>
-                      <strong>Target problem:</strong>{" "}
+                    <p className="knowledge-target">
+                      <span>Target problem</span>
                       {practice.target_problem}
                     </p>
 
                   </div>
 
 
-                  <div style={{ marginBottom: "16px" }}>
+                  {/* Conditions */}
 
-                    <span
-                      style={{
-                        display: "block",
-                        marginBottom: "7px",
-                        fontSize: "12px",
-                        fontWeight: 600,
-                      }}
-                    >
+                  <div className="knowledge-conditions">
+
+                    <span className="knowledge-conditions-label">
                       Suitable conditions
                     </span>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "7px",
-                      }}
-                    >
+                    <div className="knowledge-tags">
+
                       {practice.suitable_conditions.map(
                         (condition, index) => (
-                          <span
-                            key={index}
-                            style={{
-                              padding: "5px 8px",
-                              borderRadius: "5px",
-                              background: "#eef4f0",
-                              color: "#496d5b",
-                              fontSize: "11px",
-                            }}
-                          >
+                          <span key={index}>
                             {condition}
                           </span>
                         )
                       )}
+
                     </div>
 
                   </div>
 
 
-                  <div
-                    style={{
-                      paddingTop: "12px",
-                      borderTop: "1px solid #e4ebe7",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    <small>
-                      <strong>Evidence:</strong>{" "}
-                      {practice.evidence.source}
-                    </small>
-                  </div>
-
+                  {/* Use Practice */}
 
                   <button
                     type="button"
-                    onClick={() => handleAdapt(practice)}
+                    className="knowledge-adapt-button"
+                    onClick={() =>
+                      handleAdapt(practice)
+                    }
                     disabled={adapting}
-                    style={{
-                      width: "100%",
-                      padding: "10px 14px",
-                      border: "1px solid #2d654d",
-                      borderRadius: "7px",
-                      background: "#fff",
-                      color: "#2d654d",
-                      fontWeight: 600,
-                      cursor: adapting
-                        ? "not-allowed"
-                        : "pointer",
-                    }}
                   >
                     {adapting
                       ? "Adapting Practice..."
-                      : "Adapt to My Farm →"}
+                      : "Use This Practice →"}
                   </button>
 
                 </article>
+
               ))}
 
             </div>
@@ -402,18 +357,14 @@ function Knowledge() {
         )}
 
 
-        {/* Adapted Recommendation */}
-        {adapted && (
-          <section
-            className="dashboard-card"
-            style={{
-              marginTop: "28px",
-              background: "#f2f8f4",
-              borderColor: "#cfe1d7",
-            }}
-          >
+        {/* ==========================================
+            LOCAL ADAPTATION
+            ========================================== */}
 
-            <div className="card-header">
+        {adapted && (
+          <section className="knowledge-adaptation">
+
+            <div className="section-heading">
 
               <div>
                 <p className="eyebrow">
@@ -425,108 +376,112 @@ function Knowledge() {
                 </h2>
               </div>
 
-              <span className="data-source">
+              <span className="knowledge-adapted-status">
                 Localized Recommendation
               </span>
 
             </div>
 
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "1.2fr 0.8fr",
-                gap: "28px",
-              }}
-            >
+            <div className="knowledge-adaptation-grid">
 
-              <div>
+              {/* Original + Localized Recommendation */}
 
-                <p
-                  style={{
-                    marginBottom: "8px",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    color: "#71847a",
-                  }}
-                >
-                  ORIGINAL PRACTICE
-                </p>
+              <div className="knowledge-original">
 
-                <strong>
-                  {adapted.original_practice.practice}
-                </strong>
+                <div className="knowledge-adaptation-block">
 
-                <p style={{ marginTop: "8px" }}>
-                  Source:{" "}
-                  {adapted.original_practice.region},{" "}
-                  {adapted.original_practice.country}
-                </p>
+                  <p className="knowledge-block-label">
+                    ORIGINAL PRACTICE
+                  </p>
+
+                  <h3>
+                    {adapted.original_practice.practice}
+                  </h3>
+
+                  <p className="knowledge-origin-text">
+                    {adapted.original_practice.region},{" "}
+                    {adapted.original_practice.country}
+                  </p>
+
+                </div>
 
 
-                <p
-                  style={{
-                    marginTop: "22px",
-                    marginBottom: "8px",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    color: "#71847a",
-                  }}
-                >
-                  LOCALIZED RECOMMENDATION
-                </p>
+                <div className="knowledge-local-divider" />
 
-                <h3 style={{ marginTop: 0 }}>
-                  {adapted.adapted_recommendation.recommendation}
-                </h3>
 
-                <p>
-                  {adapted.adapted_recommendation.why}
-                </p>
+                <div className="knowledge-adaptation-block">
+
+                  <p className="knowledge-block-label">
+                    LOCALIZED RECOMMENDATION
+                  </p>
+
+                  <h3>
+                    {
+                      adapted.adapted_recommendation
+                        .recommendation
+                    }
+                  </h3>
+
+                  <p className="knowledge-why">
+                    {
+                      adapted.adapted_recommendation
+                        .why
+                    }
+                  </p>
+
+                </div>
 
               </div>
 
 
-              <div>
+              {/* Expected effect + Monitoring + Limitations */}
 
-                <div style={{ marginBottom: "18px" }}>
-                  <span>Expected Effect</span>
+              <div className="knowledge-adaptation-details">
 
-                  <strong
-                    style={{
-                      display: "block",
-                      marginTop: "6px",
-                    }}
-                  >
-                    {adapted.adapted_recommendation.expected_effect}
-                  </strong>
+                <div className="knowledge-detail-box">
+                  <span>
+                    Expected Effect
+                  </span>
+
+                  <p>
+                    {
+                      adapted.adapted_recommendation
+                        .expected_effect
+                    }
+                  </p>
                 </div>
 
 
-                <div style={{ marginBottom: "18px" }}>
-                  <span>Monitoring</span>
+                <div className="knowledge-detail-box">
+                  <span>
+                    Monitoring
+                  </span>
 
-                  <strong
-                    style={{
-                      display: "block",
-                      marginTop: "6px",
-                    }}
-                  >
-                    {adapted.adapted_recommendation.monitoring}
-                  </strong>
+                  <p>
+                    {
+                      adapted.adapted_recommendation
+                        .monitoring
+                    }
+                  </p>
                 </div>
 
 
-                <div>
-                  <span>Limitations</span>
+                <div className="knowledge-detail-box">
+                  <span>
+                    Limitations
+                  </span>
 
                   <ul>
-                    {adapted.adapted_recommendation.limitations.map(
-                      (item, index) => (
-                        <li key={index}>{item}</li>
-                      )
-                    )}
+                    {
+                      adapted.adapted_recommendation
+                        .limitations
+                        .map((item, index) => (
+                          <li key={index}>
+                            {item}
+                          </li>
+                        ))
+                    }
                   </ul>
                 </div>
 
@@ -535,39 +490,56 @@ function Knowledge() {
             </div>
 
 
-            <div
-              style={{
-                marginTop: "22px",
-                paddingTop: "18px",
-                borderTop: "1px solid #d6e5dc",
-              }}
-            >
-              <span
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  fontSize: "12px",
-                  fontWeight: 600,
-                }}
-              >
-                Evidence Used
-              </span>
+            {/* ==========================================
+                ADAPTATION BASIS
+                ========================================== */}
 
-              {adapted.adapted_recommendation.evidence.map(
-                (item, index) => (
-                  <span
-                    key={index}
-                    style={{
-                      display: "block",
-                      marginBottom: "4px",
-                      fontSize: "12px",
-                      color: "#60776b",
-                    }}
-                  >
-                    • {item}
-                  </span>
-                )
-              )}
+            <div className="knowledge-adaptation-basis">
+
+              <div>
+                <span>
+                  ADAPTATION BASIS
+                </span>
+              </div>
+
+              <div>
+                <p>
+                  • Original practice from agricultural
+                  knowledge exchange
+                </p>
+
+                <p>
+                  • Local farm context
+                </p>
+              </div>
+
+            </div>
+
+
+            {/* ==========================================
+                NEXT STAGE
+                ========================================== */}
+
+            <div className="knowledge-next-step">
+
+              <div>
+                <span>
+                  NEXT STAGE
+                </span>
+
+                <p>
+                  Explore how agricultural knowledge can
+                  connect across the BRICS network.
+                </p>
+              </div>
+
+              <a
+                href="/network"
+                className="knowledge-next-button"
+              >
+                Continue to BRICS Network →
+              </a>
+
             </div>
 
           </section>

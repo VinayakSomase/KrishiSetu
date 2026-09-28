@@ -26,6 +26,7 @@ function Sidebar() {
 
   return (
     <aside className="sidebar">
+
       <div className="sidebar-brand">
         <h2>KrishiSetu</h2>
         <span>Agricultural Intelligence</span>
@@ -48,13 +49,6 @@ function Sidebar() {
         ))}
       </nav>
 
-      <div className="sidebar-footer">
-        <span className="connection-dot"></span>
-        <div>
-          <strong>System Ready</strong>
-          <small>KrishiSetu v1.0</small>
-        </div>
-      </div>
     </aside>
   );
 }

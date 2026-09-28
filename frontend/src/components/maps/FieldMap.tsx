@@ -40,7 +40,7 @@ function MapResizeFix() {
 function FieldMap() {
   // Temporary prototype coordinates.
   // These will come from the backend later.
-  const farmLocation: [number, number] = [20.011, 73.790];
+  const farmLocation: [number, number] = [20.011, 73.79];
 
   const farmBoundary: [[number, number], [number, number]] = [
     [20.014, 73.786],
@@ -49,32 +49,50 @@ function FieldMap() {
 
   return (
     <section className="dashboard-card field-map-card">
+
+      {/* Header */}
       <div className="card-header">
+
         <div>
           <p className="eyebrow">FIELD INTELLIGENCE</p>
+
           <h2>Field Map</h2>
         </div>
 
-        <span className="data-source">Map Data</span>
+        <span className="data-source">
+          Location Data
+        </span>
+
       </div>
 
+
+      {/* Map */}
       <div className="field-map-wrapper">
+
         <MapContainer
           center={farmLocation}
           zoom={14}
           scrollWheelZoom={false}
           className="field-map"
         >
+
           <MapResizeFix />
 
           <LayersControl position="topright">
-            <LayersControl.BaseLayer checked name="Standard Map">
+
+            {/* Standard Map */}
+            <LayersControl.BaseLayer
+              checked
+              name="Standard Map"
+            >
               <TileLayer
                 attribution="© OpenStreetMap contributors"
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
             </LayersControl.BaseLayer>
 
+
+            {/* Satellite */}
             <LayersControl.BaseLayer name="Satellite">
               <TileLayer
                 attribution="Tiles © Esri"
@@ -82,7 +100,12 @@ function FieldMap() {
               />
             </LayersControl.BaseLayer>
 
-            <LayersControl.Overlay checked name="Farm Boundary">
+
+            {/* Farm Boundary */}
+            <LayersControl.Overlay
+              checked
+              name="Farm Boundary"
+            >
               <Rectangle
                 bounds={farmBoundary}
                 pathOptions={{
@@ -93,31 +116,66 @@ function FieldMap() {
                 }}
               />
             </LayersControl.Overlay>
+
           </LayersControl>
 
+
+          {/* Farm Location */}
           <Marker position={farmLocation}>
+
             <Popup>
-              <strong>Selected Farm</strong>
-              <br />
-              Nashik, Maharashtra
+
+              <div>
+                <strong>Selected Farm</strong>
+
+                <br />
+
+                <span>
+                  Nashik, Maharashtra
+                </span>
+
+              </div>
+
             </Popup>
+
           </Marker>
+
         </MapContainer>
 
+
+        {/* Selected Farm Information */}
         <div className="map-location-card">
+
           <span>Selected Farm</span>
-          <strong>Nashik, Maharashtra</strong>
+
+          <strong>
+            Nashik, Maharashtra
+          </strong>
+
+          <small>
+            Cotton · Flowering stage
+          </small>
+
         </div>
+
       </div>
 
+
+      {/* Map Status */}
       <div className="map-status">
+
         <span>
           <i className="status-dot" />
+
           Field location available
         </span>
 
-        <span>Geospatial layers ready for backend data</span>
+        <span>
+          Farm boundary displayed
+        </span>
+
       </div>
+
     </section>
   );
 }
