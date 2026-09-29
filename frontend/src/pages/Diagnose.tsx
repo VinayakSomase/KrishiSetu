@@ -47,12 +47,12 @@ function Diagnose() {
     setResult(null);
 
     try {
-      const response = await api.diagnoseCrop({
+      const response = await api.diagnoseCrop(
         image,
         crop,
-        growth_stage: growthStage,
-        farmer_observation: observation || null,
-      });
+        growthStage,
+        observation || undefined
+      );
 
       setResult(response);
     } catch (err) {

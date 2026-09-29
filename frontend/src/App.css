@@ -3193,3 +3193,109 @@ a {
   border-color: #b9d1c2;
   transform: translateY(-1px);
 }
+
+
+
+
+/* =========================
+   VOICE AGRICULTURAL ASSISTANT
+   ========================= */
+
+.voice-assistant {
+  margin-bottom: 28px;
+}
+
+.voice-assistant > p {
+  margin: 10px 0 18px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.voice-query-box {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.voice-query-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.voice-query-box input:focus {
+  border-color: #2f7d32;
+  box-shadow: 0 0 0 3px rgba(47, 125, 50, 0.12);
+}
+
+.voice-query-box input::placeholder {
+  color: #9ca3af;
+}
+
+.voice-query-box button {
+  padding: 13px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #2f7d32;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.voice-query-box button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.voice-query-box button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.voice-response {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f4f8f4;
+  border: 1px solid #dce8dc;
+}
+
+.voice-response > span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2f7d32;
+}
+
+.voice-response p {
+  margin: 0;
+  color: #374151;
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+.voice-response small {
+  display: block;
+  margin-top: 12px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .voice-query-box {
+    flex-direction: column;
+  }
+
+  .voice-query-box button {
+    width: 100%;
+  }
+}

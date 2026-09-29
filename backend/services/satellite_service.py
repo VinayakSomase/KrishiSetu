@@ -2,6 +2,7 @@ import os
 from datetime import datetime, timedelta, timezone
 
 import ee
+import google.auth
 
 
 # ---------------------------------------------------------
@@ -10,7 +11,11 @@ import ee
 
 GEE_PROJECT_ID = os.getenv("GEE_PROJECT_ID", "krishisetu-506117")
 
-ee.Initialize(project=GEE_PROJECT_ID)
+credentials, _ = google.auth.default()
+ee.Initialize(
+    credentials=credentials,
+    project=GEE_PROJECT_ID,
+)
 
 
 # Sentinel-2 Surface Reflectance Harmonized

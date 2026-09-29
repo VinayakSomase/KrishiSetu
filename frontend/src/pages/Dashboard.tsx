@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import FieldMap from "../components/maps/FieldMap";
 import { api } from "../services/api";
-import type { FarmAnalyzeResponse } from "../types/api";
+import type {
+  FarmAnalyzeResponse,
+  VoiceQueryResponse,
+} from "../types/api";
 
 function Dashboard() {
   const [data, setData] = useState<FarmAnalyzeResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const [voiceQuery, setVoiceQuery] = useState("");
+  const [voiceLoading, setVoiceLoading] = useState(false);
+  const [voiceResponse, setVoiceResponse] =
+    useState<VoiceQueryResponse | null>(null);
 
   useEffect(() => {
     async function loadFarmData() {
@@ -38,6 +46,33 @@ function Dashboard() {
     loadFarmData();
   }, []);
 
+  const handleVoiceQuery = async () => {
+    if (!voiceQuery.trim() || voiceLoading) return;
+
+    setVoiceLoading(true);
+    setVoiceResponse(null);
+
+    try {
+      const response = await api.voiceQuery({
+        language: "English",
+        query: voiceQuery,
+        farm_context: {
+          country: "India",
+          state: "Maharashtra",
+          district: "Nashik",
+          crop: "Cotton",
+          
+        },
+      });
+
+      setVoiceResponse(response);
+    } catch (err) {
+      console.error("Voice query failed:", err);
+    } finally {
+      setVoiceLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="app-layout">
@@ -62,13 +97,79 @@ function Dashboard() {
     );
   }
 
-  const { farm, field_health, weather, soil, risks, advisory_preview } = data;
+  const { farm, field_health, weather, soil, advisory_preview } = data;
 
   return (
     <div className="app-layout">
       <Sidebar />
 
       <main className="dashboard">
+
+        {/* Voice Agricultural Assistant */}
+        <section className="dashboard-card voice-assistant">
+
+          <div className="card-header">
+            <div>
+              <p className="eyebrow">AI AGRICULTURAL ASSISTANT</p>
+              <h2>Ask KrishiSetu</h2>
+            </div>
+
+            <span className="data-source">
+              Gemini AI
+            </span>
+          </div>
+
+          <p>
+            Ask a question about your farm, crop, weather, soil,
+            or agricultural practices.
+          </p>
+
+          <div className="voice-query-box">
+
+            <input
+              type="text"
+              value={voiceQuery}
+              onChange={(e) => setVoiceQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleVoiceQuery();
+                }
+              }}
+              placeholder="e.g. What should I do if my cotton field gets too much rain?"
+            />
+
+            <button
+              type="button"
+              onClick={handleVoiceQuery}
+              disabled={voiceLoading || !voiceQuery.trim()}
+            >
+              {voiceLoading ? "Thinking..." : "Ask"}
+            </button>
+
+          </div>
+
+          {voiceResponse && (
+            <div className="voice-response">
+
+              <span>KrishiSetu AI</span>
+
+              <p>
+                {voiceResponse.response.text}
+              </p>
+
+              {voiceResponse.response.source.length > 0 && (
+                <small>
+                  Source: {voiceResponse.response.source.join(" • ")}
+                </small>
+              )}
+
+            </div>
+          )}
+
+        </section>
+
+
+      
 
         {/* Header */}
         <header className="dashboard-header">

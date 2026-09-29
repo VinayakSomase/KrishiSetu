@@ -12,7 +12,7 @@ function Network() {
     async function loadNetwork() {
       try {
         const response = await api.getNetworkNodes();
-        setNodes(response.nodes);
+        setNodes(response);
       } catch (err) {
         console.error("Network loading failed:", err);
         setError("Unable to load network information.");
