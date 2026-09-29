@@ -1,8 +1,10 @@
 import os
-from datetime import datetime, timedelta, timezone
+import json
+from datetime import datetime, timedelta
 
 import ee
 import google.auth
+from google.oauth2 import service_account
 
 
 # ---------------------------------------------------------
@@ -11,7 +13,20 @@ import google.auth
 
 GEE_PROJECT_ID = os.getenv("GEE_PROJECT_ID", "krishisetu-506117")
 
-credentials, _ = google.auth.default()
+GEE_SERVICE_ACCOUNT_JSON = os.getenv("GEE_SERVICE_ACCOUNT_JSON")
+
+if GEE_SERVICE_ACCOUNT_JSON:
+    service_account_info = json.loads(GEE_SERVICE_ACCOUNT_JSON)
+    credentials = service_account.Credentials.from_service_account_info(
+        service_account_info,
+        scopes=[
+            "https://www.googleapis.com/auth/earthengine",
+            "https://www.googleapis.com/auth/cloud-platform",
+        ],
+    )
+else:
+    credentials, _ = google.auth.default()
+
 ee.Initialize(
     credentials=credentials,
     project=GEE_PROJECT_ID,
