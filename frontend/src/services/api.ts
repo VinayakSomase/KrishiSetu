@@ -13,7 +13,7 @@ import type {
   VoiceQueryResponse,
 } from "../types/api";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://krishisetu-api-8008.onrender.com";
 
 async function request<T>(
   endpoint: string,
