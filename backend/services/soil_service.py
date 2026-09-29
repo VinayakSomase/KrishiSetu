@@ -1,11 +1,30 @@
+import os
+import json
+
 import ee
+from google.oauth2 import service_account
 
 from models.api import DataValue, SoilData
 
 
-GEE_PROJECT_ID = "krishisetu-506117"
+GEE_PROJECT_ID = os.getenv("GEE_PROJECT_ID", "krishisetu-506117")
+GEE_SERVICE_ACCOUNT_JSON = os.getenv("GEE_SERVICE_ACCOUNT_JSON")
 
-ee.Initialize(project=GEE_PROJECT_ID)
+if GEE_SERVICE_ACCOUNT_JSON:
+    service_account_info = json.loads(GEE_SERVICE_ACCOUNT_JSON)
+    credentials = service_account.Credentials.from_service_account_info(
+        service_account_info,
+        scopes=[
+            "https://www.googleapis.com/auth/earthengine",
+            "https://www.googleapis.com/auth/cloud-platform",
+        ],
+    )
+    ee.Initialize(
+        credentials=credentials,
+        project=GEE_PROJECT_ID,
+    )
+else:
+    ee.Initialize(project=GEE_PROJECT_ID)
 
 TEXTURE_DATASET = (
     "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02"
