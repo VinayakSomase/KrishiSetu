@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import FieldMap from "../components/maps/FieldMap";
@@ -674,13 +675,13 @@ function Dashboard() {
   </div>
 
 <div className="advisory-preview-footer">
-  <a href="/diagnose" className="advisory-diagnosis-button">
+  <Link to="/diagnose" className="advisory-diagnosis-button">
     Run Crop Diagnosis →
-  </a>
+  </Link>
 
-  <a href="/advisory">
+  <Link to="/advisory">
     View Full Advisory →
-  </a>
+  </Link>
 </div>
 
 </section>
