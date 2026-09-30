@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import { api } from "../services/api";
@@ -84,9 +85,9 @@ function Diagnose() {
               condition and identify appropriate actions.
             </p>
           </div>
-               <a href="/" className="diagnose-back-button">
+               <Link to="/" className="diagnose-back-button">
   ← Back to Dashboard
-</a>
+</Link>
         </header>
    
 
@@ -654,12 +655,12 @@ function Diagnose() {
 
               </div>
             )}
-            <a
-  href="/advisory"
-  className="diagnose-advisory-button"
->
-  Continue to Regenerative Advisory →
-</a>
+            <Link
+              to="/advisory"
+              className="diagnose-advisory-button"
+            >
+              Continue to Regenerative Advisory →
+            </Link>
 
           </section>
         )}

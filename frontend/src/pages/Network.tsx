@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import { api } from "../services/api";
@@ -48,9 +49,9 @@ function Network() {
               {loading ? "Loading..." : `${nodes.length} Countries`}
             </strong>
           </div>
-          <a href="/knowledge" className="network-back-button">
+          <Link to="/knowledge" className="network-back-button">
   ← Back to Knowledge Exchange
-</a>
+</Link>
         </header>
 
         {/* Network Overview */}
@@ -269,9 +270,9 @@ function Network() {
             </p>
           </div>
 
-          <a href="/" className="network-return-button">
+          <Link to="/" className="network-return-button">
             Return to Field Intelligence →
-          </a>
+          </Link>
         </section>
       </main>
     </div>

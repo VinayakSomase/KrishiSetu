@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import { api } from "../services/api";
@@ -123,9 +124,9 @@ function Knowledge() {
               Nashik, Maharashtra
             </strong>
           </div>
-          <a href="/diagnose" className="knowledge-back-button">
+          <Link to="/diagnose" className="knowledge-back-button">
   ← Back to Crop Diagnostics
-</a>
+</Link>
         </header>
 
 
@@ -533,12 +534,11 @@ function Knowledge() {
                 </p>
               </div>
 
-              <a
-                href="/network"
+              <Link to="/network"
                 className="knowledge-next-button"
               >
                 Continue to BRICS Network →
-              </a>
+              </Link>
 
             </div>
 

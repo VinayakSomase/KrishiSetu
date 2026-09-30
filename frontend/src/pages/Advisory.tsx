@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import { api } from "../services/api";
@@ -119,9 +120,9 @@ function Advisory() {
               Nashik, Maharashtra
             </strong>
           </div>
-          <a href="/diagnose" className="advisory-back-button">
+          <Link to="/diagnose" className="advisory-back-button">
   ← Back to Crop Diagnostics
-</a>
+</Link>
         </header>
 
 
@@ -345,12 +346,11 @@ function Advisory() {
 
         <div className="advisory-footer">
 
-          <a
-            href="/knowledge"
+          <Link to="/knowledge"
             className="advisory-next-button"
           >
             Explore Agricultural Knowledge →
-          </a>
+          </Link>
 
         </div>
 
