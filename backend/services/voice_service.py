@@ -24,7 +24,7 @@ async def generate_voice_response(
 ) -> VoiceQueryResponse:
 
     prompt = f"""
-You are the voice agricultural assistant for KrishiSetu Nexus.
+You are the voice agricultural assistant for KrishiSetu.
 
 Answer the farmer's agricultural question using the supplied farm context.
 

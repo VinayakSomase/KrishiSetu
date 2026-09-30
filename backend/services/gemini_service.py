@@ -29,7 +29,7 @@ async def generate_advisory(
 ) -> AdvisoryResponse:
 
     prompt = f"""
-You are the agricultural intelligence engine for KrishiSetu Nexus.
+You are the agricultural intelligence engine for KrishiSetu.
 
 KrishiSetu combines real agricultural observations such as:
 - weather

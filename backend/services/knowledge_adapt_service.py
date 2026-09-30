@@ -36,7 +36,7 @@ async def adapt_knowledge(
     practice_record = get_practice_by_id(practice)
 
     prompt = f"""
-You are the agricultural knowledge adaptation engine for KrishiSetu Nexus.
+You are the agricultural knowledge adaptation engine for KrishiSetu.
 
 Your task is to adapt an agricultural practice from the knowledge network
 to the farmer's local conditions.

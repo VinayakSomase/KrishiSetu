@@ -69,7 +69,7 @@ async def generate_diagnosis(
     observation = farmer_observation or "No farmer observation provided."
 
     prompt = f"""
-You are the crop diagnostics engine for KrishiSetu Nexus.
+You are the crop diagnostics engine for KrishiSetu.
 
 Analyze the supplied crop image together with the farmer's context.
 
