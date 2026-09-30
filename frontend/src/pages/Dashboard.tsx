@@ -495,7 +495,7 @@ function Dashboard() {
 
       <strong>
         {soil.organic_carbon.value ?? "—"}
-        {soil.organic_carbon.value !== null ? "%" : ""}
+        {soil.organic_carbon.value !== null ? " g/kg" : ""}
       </strong>
     </div>
 
